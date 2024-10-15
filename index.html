@@ -8,11 +8,12 @@
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
 </head>
 
-<body class=" flex justify-between max-w-screen-lg mx-auto bangla-font" x-data="pageState()">
+<body class="flex justify-between max-w-screen-lg mx-auto tiro-bangla-regular" x-data="pageState()">
   <div class="bg-green-600 w-52 p-2 flex flex-col space-y-2">
     <div>
       <label for="">Store Name</label>
@@ -53,27 +54,27 @@
     <button type="button" class="w-full bg-black text-white rounded py-2" @click="printBarcode">Print</button>
   </div>
   <div class="w-[210mm] min-h-dvh p-1" id="bigInvoice">
-    <div x-show="action" class="grid grid-cols-5 gap-3 text-xs">
+    <div x-show="action" class="grid grid-cols-5 gap-1 text-xs">
       <template x-for="n in pice" :key="n">
         <fieldset class="border border-solid border-slate-900 text-center rounded flex flex-col items-center justify-center p-1">
-          <legend x-text="name"></legend>
+          <legend x-text="name" class="font-bold"></legend>
           <div class="flex justify-between space-x-3">
             <div class="flex space-x-1">
               <span>নাম:</span>
-              <span x-text="product"></span>
+              <span x-text="product" class="font-bold"></span>
             </div>
             <div class="flex space-x-1">
-              <span x-text="weight">0</span>
+              <span x-text="engToBanglaDigit(weight)" class="font-bold">0</span>
               <span x-text="weightType">gm</span>
             </div>
           </div>
-          <div class="flex space-x-1">
-            <span>মফঃ</span>
-            <span x-text="manufacture"></span>
+          <div class="flex space-x-1" x-show="manufacture">
+            <span class="font-bold">উৎ.</span>
+            <span x-text="new Date(manufacture).toLocaleDateString('bn-EG')"></span>
           </div>
-          <div class="flex space-x-1">
-            <span>EXP:</span>
-            <span x-text="expired">gm</span>
+          <div class="flex space-x-1" x-show="expired">
+            <span class="font-bold">মেয়া.</span>
+            <span x-text=" new Date(expired).toLocaleDateString('bn-EG')">gm</span>
           </div>
           <svg :id="'barcode-' + n" class="w-full h-fit"></svg>
         </fieldset>
@@ -102,7 +103,7 @@
               format: "CODE128",
               lineColor: "#000",
               width: 4,
-              height: 60,
+              height: 40,
               displayValue: true,
               fontSize: 18,
               font: "monospace",
@@ -120,6 +121,24 @@
           }
         });
       },
+      engToBanglaDigit(engNumber) {
+        // English to Bangla digit mapping
+        const engToBn = {
+          '0': '০',
+          '1': '১',
+          '2': '২',
+          '3': '৩',
+          '4': '৪',
+          '5': '৫',
+          '6': '৬',
+          '7': '৭',
+          '8': '৮',
+          '9': '৯'
+        };
+
+        // Convert each digit using the mapping
+        return String(engNumber).split('').map(char => engToBn[char] || char).join('');
+      }
     }
   }
 </script>

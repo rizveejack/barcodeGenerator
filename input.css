@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bangla-font {
+  font-family: "Bengali", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:"wdth" 100;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    
+    #bigInvoice,#bigInvoice * {
+        visibility: visible;
+        font-family: "Bengali", sans-serif;
+    }
+    #bigInvoice {
+      position: fixed;
+      left: 0;
+      top: 0;
+    }
+}

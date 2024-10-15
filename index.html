@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@100..900&display=swap" rel="stylesheet">
+</head>
+
+<body class=" flex justify-between max-w-screen-lg mx-auto bangla-font" x-data="pageState()">
+  <div class="bg-green-600 w-52 p-2 flex flex-col space-y-2">
+    <div>
+      <label for="">Store Name</label>
+      <input x-model="name" type="text" placeholder="Your Store Name" class="focus:outline-none bg-white text-slate-900 w-full">
+    </div>
+    <div>
+      <label for="">Product Name</label>
+      <input x-model="product" type="text" placeholder="Product Name" class="focus:outline-none bg-white text-slate-900 w-full">
+    </div>
+    <div class="flex space-x-2">
+      <div>
+        <label for="">Wight</label>
+        <input x-model.number="weight" type="number" placeholder="Product Weight" class="focus:outline-none bg-white text-slate-900 w-full">
+      </div>
+      <div>
+        <label for="">Type</label>
+        <input x-model="weightType" type="text" placeholder="Weight Type" class="focus:outline-none bg-white text-slate-900 w-full">
+      </div>
+    </div>
+    <div>
+      <label for=""> Maf Date</label>
+      <input x-model="manufacture" type="date" placeholder="Product Manufacture" class="focus:outline-none bg-white text-slate-900 w-full">
+    </div>
+
+    <div>
+      <label for="">Exp Date</label>
+      <input x-model="expired" type="date" placeholder="Product Expired" class="focus:outline-none bg-white text-slate-900 w-full">
+    </div>
+    <div>
+      <label for="">Print Quantity</label>
+      <input x-model.number="pice" type="number" placeholder="Product Expired" class="focus:outline-none bg-white text-slate-900 w-full">
+    </div>
+    <div>
+      <label for="">Sku number</label>
+      <input x-model="sku" type="number" placeholder="Product Expired" class="focus:outline-none bg-white text-slate-900 w-full">
+    </div>
+    <button type="button" class="w-full bg-black text-white rounded py-2" @click="createBarcode">Generate Barcode</button>
+    <button type="button" class="w-full bg-black text-white rounded py-2" @click="printBarcode">Print</button>
+  </div>
+  <div class="w-[210mm] min-h-dvh p-1" id="bigInvoice">
+    <div x-show="action" class="grid grid-cols-5 gap-3 text-xs">
+      <template x-for="n in pice" :key="n">
+        <fieldset class="border border-solid border-slate-900 text-center rounded flex flex-col items-center justify-center p-1">
+          <legend x-text="name"></legend>
+          <div class="flex justify-between space-x-3">
+            <div class="flex space-x-1">
+              <span>নাম:</span>
+              <span x-text="product"></span>
+            </div>
+            <div class="flex space-x-1">
+              <span x-text="weight">0</span>
+              <span x-text="weightType">gm</span>
+            </div>
+          </div>
+          <div class="flex space-x-1">
+            <span>মফঃ</span>
+            <span x-text="manufacture"></span>
+          </div>
+          <div class="flex space-x-1">
+            <span>EXP:</span>
+            <span x-text="expired">gm</span>
+          </div>
+          <svg :id="'barcode-' + n" class="w-full h-fit"></svg>
+        </fieldset>
+      </template>
+    </div>
+  </div>
+</body>
+
+<script>
+  function pageState() {
+    return {
+      action: false,
+      name: 'সপ্ন বাজার',
+      product: "চিনি",
+      weight: 25,
+      weightType: 'গ্রাম',
+      manufacture: '',
+      expired: '',
+      pice: 44,
+      sku: '12345678',
+      createBarcode() {
+        Alpine.nextTick(() => {
+          this.action = true;
+          for (let i = 1; i <= this.pice; i++) {
+            JsBarcode("#barcode-" + i, this.sku, {
+              format: "CODE128",
+              lineColor: "#000",
+              width: 4,
+              height: 60,
+              displayValue: true,
+              fontSize: 18,
+              font: "monospace",
+              text: this.sku,
+              margin: 0,
+              flat: false,
+            });
+          }
+        })
+      },
+      printBarcode() {
+        Alpine.nextTick(() => {
+          if (this.action) {
+            window.print();
+          }
+        });
+      },
+    }
+  }
+</script>
+
+</html>

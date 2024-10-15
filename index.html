@@ -44,7 +44,7 @@
     </div>
     <div>
       <label for="">Print Quantity</label>
-      <input x-model.number="pice" type="number" placeholder="Product Expired" class="focus:outline-none bg-white text-slate-900 w-full">
+      <input x-model.number="pice" type="number" placeholder="Product Expired" class="focus:outline-none bg-white text-slate-900 w-full" @input="createBarcode()">
     </div>
     <div>
       <label for="">Sku number</label>

@@ -59,7 +59,7 @@
       <button type="button" class="w-full bg-black text-white rounded py-2" @click="printBarcode">প্রিন্ট করুন</button>
     </div>
   </div>
-  <div class="w-[210mm] min-h-dvh p-1 border-slate-800 border-dashed border" id="bigInvoice">
+  <div class="w-[200mm] min-h-dvh p-1 border-slate-800 border-dashed border" id="bigInvoice">
     <div x-show="action" class="grid grid-cols-5 gap-1 text-xs pt-1">
       <template x-for="n in pice" :key="n">
         <fieldset class="border border-solid border-slate-900 text-center rounded flex flex-col items-center justify-center p-1">
@@ -86,7 +86,7 @@
             <span class="font-bold">মেয়া.</span>
             <span x-text=" new Date(expired).toLocaleDateString('bn-EG')">gm</span>
           </div>
-          <svg :id="'barcode-' + n" class="w-full h-fit"></svg>
+          <svg :id="'barcode-' + n" class="w-full h-fit px-3"></svg>
         </fieldset>
       </template>
     </div>
@@ -104,8 +104,8 @@
       weightType: 'গ্রাম',
       manufacture: '',
       expired: '',
-      pice: 44,
-      sku: '12345678',
+      pice: 45,
+      sku: '000398',
       createBarcode() {
         Alpine.nextTick(() => {
           this.action = true;
@@ -113,10 +113,10 @@
             JsBarcode("#barcode-" + i, this.sku, {
               format: "CODE128",
               lineColor: "#000",
-              width: 4,
-              height: 40,
+              width: 2,
+              height: 25,
               displayValue: true,
-              fontSize: 18,
+              fontSize: 14,
               font: "monospace",
               text: this.sku,
               margin: 0,

@@ -612,8 +612,8 @@ video {
   justify-content: space-between;
 }
 
-.gap-3 {
-  gap: 0.75rem;
+.justify-evenly {
+  justify-content: space-evenly;
 }
 
 .gap-1 {
@@ -642,6 +642,24 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+}
+
+.space-x-\[3px\] > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(3px * var(--tw-space-x-reverse));
+  margin-left: calc(3px * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.space-x-\[2px\] > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(2px * var(--tw-space-x-reverse));
+  margin-left: calc(2px * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.space-x-\[4px\] > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(4px * var(--tw-space-x-reverse));
+  margin-left: calc(4px * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .rounded {
@@ -696,6 +714,16 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
 }
 
 .font-bold {

@@ -23,10 +23,14 @@
       <label for="">Product Name</label>
       <input x-model="product" type="text" placeholder="Product Name" class="focus:outline-none bg-white text-slate-900 w-full">
     </div>
+    <div>
+      <label for="">Product Price</label>
+      <input x-model="price" type="number" placeholder="Product Name" class="focus:outline-none bg-white text-slate-900 w-full" :min="0">
+    </div>
     <div class="flex space-x-2">
       <div>
         <label for="">Wight</label>
-        <input x-model.number="weight" type="number" placeholder="Product Weight" class="focus:outline-none bg-white text-slate-900 w-full">
+        <input x-model.number="weight" type="number" placeholder="Product Weight" class="focus:outline-none bg-white text-slate-900 w-full" :min="0">
       </div>
       <div>
         <label for="">Type</label>
@@ -58,14 +62,18 @@
       <template x-for="n in pice" :key="n">
         <fieldset class="border border-solid border-slate-900 text-center rounded flex flex-col items-center justify-center p-1">
           <legend x-text="name" class="font-bold"></legend>
-          <div class="flex justify-between space-x-3">
-            <div class="flex space-x-1">
-              <span>নাম:</span>
+          <div class="flex justify-evenly space-x-[4px]">
+            <div class="flex space-x-[2px]">
               <span x-text="product" class="font-bold"></span>
+              <div class="flex space-x-[2px]">
+                <span x-text="engToBanglaDigit(weight)" class="font-bold">0</span>
+                <span x-text="weightType">gm</span>
+              </div>
             </div>
-            <div class="flex space-x-1">
-              <span x-text="engToBanglaDigit(weight)" class="font-bold">0</span>
-              <span x-text="weightType">gm</span>
+            <div class="font-bold flex space-x-[2px]">
+              <span>মূল্য:</span>
+              <span x-text="engToBanglaDigit(price)"></span>
+              <span>টাকা</span>
             </div>
           </div>
           <div class="flex space-x-1" x-show="manufacture">
@@ -89,6 +97,7 @@
       action: false,
       name: 'সপ্ন বাজার',
       product: "চিনি",
+      price: 0,
       weight: 25,
       weightType: 'গ্রাম',
       manufacture: '',

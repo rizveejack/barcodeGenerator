@@ -4,7 +4,7 @@
 
 @font-face {
     font-family: 'bnFont';
-    src: url('../fonts/bangla.ttf') format('truetype');
+    src: url('../fonts/noto.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }

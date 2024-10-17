@@ -25,9 +25,19 @@
         <label for="">পণ্যের নাম</label>
         <input x-model="product" type="text" placeholder="Product Name" class="focus:outline-none bg-white text-slate-900 w-full px-1 rounded">
       </div>
-      <div class="px-2">
+      <div class="flex flex-col px-2">
         <label for="">পণ্যের মূল্য</label>
-        <input x-model="price" type="number" placeholder="Product Name" class="focus:outline-none bg-white text-slate-900 w-full px-1 rounded" :min="0">
+        <div class="flex">
+          <div class="rounded-s">
+            <input x-model.number="price" type="number" placeholder="Product Weight" class="focus:outline-none text-slate-900 rounded-s w-full px-1" :min="0">
+          </div>
+          <div class="">
+            <select name="" id="" x-model="isTop" class="focus:outline-none w-24 h-full rounded-e bg-black text-white">
+              <option value="OFF" selected>নিচে</option>
+              <option value="ON">উপরে</option>
+            </select>
+          </div>
+        </div>
       </div>
       <div class="flex flex-col px-2">
         <label for="">ওজন</label>
@@ -90,17 +100,22 @@
               <span x-text="weightType">gm</span>
             </div>
           </div>
-          <div class="flex space-x-1" x-show="manufacture">
-            <span class="font-bold">মোড়ক: </span>
-            <span x-text="new Date(manufacture).toLocaleDateString('bn-EG')"></span>
+          <div class="font-bold flex space-x-[2px] pt-[2px]" x-show="isTop==='ON' && price>0">
+            <span>মূল্য:</span>
+            <span x-text="engToBanglaDigit(price)"></span>
+            <span>টাকা</span>
           </div>
-          <div class="flex space-x-1" x-show="expired">
-            <span class="font-bold">মেয়াদ:</span>
-            <span x-text=" new Date(expired).toLocaleDateString('bn-EG')">gm</span>
+          <div class="flex space-x-1 font-bold" x-show="manufacture">
+            <span>মোড়ক: </span>
+            <span x-text="new Date(manufacture).toLocaleDateString('bn-EG')">00/00/00</span>
+          </div>
+          <div class="flex space-x-1 font-bold" x-show="expired">
+            <span>মেয়াদ:</span>
+            <span x-text=" new Date(expired).toLocaleDateString('bn-EG')">00/00/00</span>
           </div>
           <svg :id="'barcode-' + n" class="w-full h-fit px-3"></svg>
           <div class="flex items-center space-x-2 justify-center">
-            <div class="font-bold flex space-x-[2px] pt-[2px]">
+            <div class="font-bold flex space-x-[2px] pt-[2px]" x-show="isTop==='OFF' && price>0">
               <span>মূল্য:</span>
               <span x-text="engToBanglaDigit(price)"></span>
               <span>টাকা</span>
@@ -116,6 +131,7 @@
 <script>
   function pageState() {
     return {
+      isTop: "ON",
       action: false,
       name: 'সপ্ন বাজার',
       product: "চিনি",

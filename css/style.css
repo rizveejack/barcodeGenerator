@@ -716,10 +716,6 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.p-1 {
-  padding: 0.25rem;
-}
-
 .p-5 {
   padding: 1.25rem;
 }
@@ -798,10 +794,18 @@ video {
   text-decoration-line: underline;
 }
 
-.tiro-bangla-regular {
-  font-family: "Tiro Bangla", serif;
-  font-weight: 400;
+@font-face {
+  font-family: 'bnFont';
+
+  src: url('../fonts/bangla.ttf') format('truetype');
+
+  font-weight: normal;
+
   font-style: normal;
+}
+
+.tiro-bangla-regular {
+  font-family: "bnFont", serif;
 }
 
 @media print {
@@ -811,7 +815,7 @@ video {
 
   #bigInvoice,#bigInvoice * {
     visibility: visible;
-    font-family: "Tiro Bangla", sans-serif;
+    font-family: "bnFont", sans-serif;
   }
 
   #bigInvoice {

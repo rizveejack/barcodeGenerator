@@ -2,10 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'bnFont';
+    src: url('../fonts/bangla.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .tiro-bangla-regular {
-  font-family: "Tiro Bangla", serif;
-  font-weight: 400;
-  font-style: normal;
+  font-family: "bnFont", serif;
 }
 
 @media print {
@@ -15,7 +20,7 @@
     
     #bigInvoice,#bigInvoice * {
         visibility: visible;
-        font-family: "Tiro Bangla", sans-serif;
+        font-family: "bnFont", sans-serif;
     }
     #bigInvoice {
       position: fixed;

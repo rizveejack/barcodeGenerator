@@ -91,36 +91,38 @@
   <div class="w-[205mm] min-h-dvh" id="bigInvoice">
     <div x-show="action" class="grid grid-cols-5 gap-2 text-xs pt-1">
       <template x-for="n in pice" :key="n">
-        <fieldset class="border border-solid border-slate-900 text-center rounded flex flex-col items-center justify-center p-1">
+        <fieldset class="border border-solid border-slate-900 text-center rounded ">
           <legend x-text="name" class="font-bold text-sm"></legend>
-          <div class="flex space-x-1">
-            <span x-text="product" class="font-bold text-xs"></span>
-            <div class="flex space-x-[2px]">
-              <span x-text="engToBanglaDigit(weight)" class="font-bold">0</span>
-              <span x-text="weightType">gm</span>
+          <div class="flex flex-col items-center justify-center px-1">
+            <div class="flex space-x-1">
+              <span x-text="product" class="font-bold text-xs"></span>
+              <div class="flex space-x-[2px]" x-show="weight>0">
+                <span x-text="engToBanglaDigit(weight)" class="font-bold">0</span>
+                <span x-text="weightType">gm</span>
+              </div>
             </div>
-          </div>
-          <div class="font-bold flex space-x-[2px] pt-[2px]" x-show="isTop==='ON' && price>0">
-            <span>মূল্য:</span>
-            <span x-text="engToBanglaDigit(price)"></span>
-            <span>টাকা</span>
-          </div>
-          <div class="flex space-x-1 font-bold" x-show="manufacture">
-            <span>মোড়ক: </span>
-            <span x-text="new Date(manufacture).toLocaleDateString('bn-EG')">00/00/00</span>
-          </div>
-          <div class="flex space-x-1 font-bold" x-show="expired">
-            <span>মেয়াদ:</span>
-            <span x-text=" new Date(expired).toLocaleDateString('bn-EG')">00/00/00</span>
-          </div>
-          <svg :id="'barcode-' + n" class="w-full h-fit px-3"></svg>
-          <div class="flex items-center space-x-2 justify-center">
-            <div class="font-bold flex space-x-[2px] pt-[2px]" x-show="isTop==='OFF' && price>0">
+            <div class="font-bold flex space-x-[2px] pt-[2px]" x-show="isTop==='ON' && price>0">
               <span>মূল্য:</span>
               <span x-text="engToBanglaDigit(price)"></span>
               <span>টাকা</span>
             </div>
-            <p x-text="engToBanglaDigit(sku)">00000000</p>
+            <div class="flex space-x-1 font-bold" x-show="manufacture">
+              <span>মোড়ক: </span>
+              <span x-text="new Date(manufacture).toLocaleDateString('bn-EG')">00/00/00</span>
+            </div>
+            <div class="flex space-x-1 font-bold" x-show="expired">
+              <span>মেয়াদ:</span>
+              <span x-text=" new Date(expired).toLocaleDateString('bn-EG')">00/00/00</span>
+            </div>
+            <svg :id="'barcode-' + n" class="w-full h-fit px-3"></svg>
+            <div class="flex items-center space-x-2 justify-center">
+              <div class="font-bold flex space-x-[2px] pt-[2px]" x-show="isTop==='OFF' && price>0">
+                <span>মূল্য:</span>
+                <span x-text="engToBanglaDigit(price)"></span>
+                <span>টাকা</span>
+              </div>
+              <p x-text="engToBanglaDigit(sku)">00000000</p>
+            </div>
           </div>
         </fieldset>
       </template>
@@ -134,14 +136,14 @@
       isTop: "ON",
       action: false,
       name: 'সপ্ন বাজার',
-      product: "চিনি",
+      product: "পণ্যের নাম",
       price: 0,
-      weight: 25,
+      weight: 0,
       weightType: 'গ্রাম',
       manufacture: '',
       expired: '',
       pice: 45,
-      sku: '000398',
+      sku: '000000',
       createBarcode() {
         Alpine.nextTick(() => {
           this.action = true;

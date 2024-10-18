@@ -16,7 +16,7 @@
       <h1 class="text-center font-bold text-xl bg-rose-500 py-2 text-white">লেবেল ক্রিয়েটর</h1>
       <div class="px-2">
         <label for="">দোকানের নাম</label>
-        <input x-model="name" type="text" placeholder="Your Store Name" class="focus:outline-none bg-white text-slate-900 w-full px-1 rounded">
+        <input x-model="name" type="text" placeholder="Your Store Name" class="focus:outline-none bg-white text-slate-900 w-full px-1 rounded" @input="storeShopName()">
       </div>
       <div class="px-2">
         <label for="">পণ্যের নাম</label>
@@ -132,7 +132,7 @@
     return {
       isTop: "ON",
       action: false,
-      name: 'সপ্ন বাজার',
+      name: 'দোকানের নাম',
       product: "পণ্যের নাম",
       price: 0,
       weight: 0,
@@ -141,6 +141,14 @@
       expired: '',
       pice: 45,
       sku: '000000',
+      init() {
+        // get shop name from local storage and set it to the input field
+        this.name = localStorage.getItem('shopName') || this.name;
+      },
+      storeShopName() {
+        // save shop name to local storage
+        localStorage.setItem('shopName', this.name);
+      },
       createBarcode() {
         Alpine.nextTick(() => {
           this.action = true;

@@ -589,6 +589,10 @@ video {
   min-height: 100dvh;
 }
 
+.w-16 {
+  width: 4rem;
+}
+
 .w-24 {
   width: 6rem;
 }
@@ -597,8 +601,8 @@ video {
   width: 15rem;
 }
 
-.w-\[205mm\] {
-  width: 205mm;
+.w-\[200mm\] {
+  width: 200mm;
 }
 
 .w-full {
@@ -627,6 +631,10 @@ video {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.gap-1 {
+  gap: 0.25rem;
 }
 
 .gap-2 {
@@ -728,11 +736,6 @@ video {
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-}
-
-.px-3 {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
 }
 
 .py-2 {

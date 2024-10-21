@@ -42,11 +42,17 @@
           <div class="rounded-s">
             <input x-model.number="weight" type="number" placeholder="Product Weight" class="focus:outline-none text-slate-900 rounded-s w-full px-1" :min="0">
           </div>
-          <div class="">
-            <select name="" id="" x-model="weightType" class="focus:outline-none w-24 h-full rounded-e bg-black text-white">
+          <div class="flex space-x-1">
+            <select name="" id="" x-model="weightType" class="focus:outline-none w-16 h-full rounded-e bg-black text-white">
               <option value="গ্রাম" selected>গ্রাম</option>
               <option value="কেজি">কেজি</option>
               <option value="লিটার">লিটার</option>
+              <option value="মি.লি.">মি.লি.</option>
+              <option value="পিস">পিস</option>
+            </select>
+            <select name="" id="" x-model="wTop" class="focus:outline-none w-16 h-full rounded-e bg-black text-white">
+              <option value="OFF" selected>নিচে</option>
+              <option value="ON">উপরে</option>
             </select>
           </div>
         </div>
@@ -85,23 +91,29 @@
       </div>
     </fieldset>
   </div>
-  <div class="w-[205mm] min-h-dvh" id="bigInvoice">
+  <div class="w-[200mm] min-h-dvh mx-auto" id="bigInvoice">
     <div x-show="action" class="grid grid-cols-5 gap-2 text-xs pt-1">
       <template x-for="n in pice" :key="n">
         <fieldset class="border border-solid border-slate-900 text-center rounded ">
           <legend x-text="name" class="font-bold text-sm"></legend>
           <div class="flex flex-col items-center justify-center px-1">
-            <div class="flex space-x-1">
-              <span x-text="product" class="font-bold text-xs"></span>
-              <div class="flex space-x-[2px]" x-show="weight>0">
-                <span x-text="engToBanglaDigit(weight)" class="font-bold">0</span>
-                <span x-text="weightType">gm</span>
+            <div class="flex gap-1">
+              <p x-text="product" class="font-bold text-xs"></p>
+              <div class="flex space-x-[2px]" x-show="weight>0 && wTop==='ON'">
+                <p x-text="engToBanglaDigit(weight)" class="font-bold">0</p>
+                <p x-text="weightType">gm</p>
               </div>
             </div>
-            <div class="font-bold flex space-x-[2px] pt-[2px]" x-show="isTop==='ON' && price>0">
-              <span>মূল্য:</span>
-              <span x-text="engToBanglaDigit(price)"></span>
-              <span>টাকা</span>
+            <div class="flex gap-1 items-center">
+              <div class="flex space-x-[2px]" x-show="weight>0 && wTop==='OFF'">
+                <p x-text="engToBanglaDigit(weight)" class="font-bold">0</p>
+                <p x-text="weightType">gm</p>
+              </div>
+              <div class="font-bold flex space-x-[2px] pt-[2px]" x-show="isTop==='ON' && price>0">
+                <span>মূল্য:</span>
+                <span x-text="engToBanglaDigit(price)"></span>
+                <span>টাকা</span>
+              </div>
             </div>
             <div class="flex space-x-1 font-bold" x-show="manufacture">
               <span>মোড়ক: </span>
@@ -111,7 +123,7 @@
               <span>মেয়াদ:</span>
               <span x-text=" new Date(expired).toLocaleDateString('bn-EG')">00/00/00</span>
             </div>
-            <svg :id="'barcode-' + n" class="w-full h-fit px-3"></svg>
+            <svg :id="'barcode-' + n" class="w-full h-fit px-2"></svg>
             <div class="flex items-center space-x-2 justify-center">
               <div class="font-bold flex space-x-[2px] pt-[2px]" x-show="isTop==='OFF' && price>0">
                 <span>মূল্য:</span>
@@ -130,6 +142,7 @@
 <script>
   function pageState() {
     return {
+      wTop: "OFF",
       isTop: "ON",
       action: false,
       name: 'দোকানের নাম',

@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="flex justify-between max-w-screen-lg mx-auto tiro-bangla-regular" x-data="pageState()">
+<body class="flex justify-between max-w-screen-lg mx-auto tiro-bangla-regular gap-5" x-data="pageState()">
   <div class="bg-slate-200 w-60 flex flex-col space-y-10">
     <section class="flex flex-col space-y-2">
       <h1 class="text-center font-bold text-xl bg-rose-500 py-2 text-white">লেবেল ক্রিয়েটর</h1>
@@ -30,8 +30,8 @@
           </div>
           <div class="">
             <select name="" id="" x-model="isTop" class="focus:outline-none w-24 h-full rounded-e bg-black text-white">
-              <option value="OFF" selected>নিচে</option>
-              <option value="ON">উপরে</option>
+              <option value="OFF">নিচে</option>
+              <option value="ON" selected>উপরে</option>
             </select>
           </div>
         </div>
@@ -91,7 +91,7 @@
       </div>
     </fieldset>
   </div>
-  <div class="w-[200mm] min-h-dvh mx-auto" id="bigInvoice">
+  <div class="w-full min-h-dvh mx-auto" id="bigInvoice">
     <div x-show="action" class="grid grid-cols-5 gap-2 text-xs pt-1">
       <template x-for="n in pice" :key="n">
         <fieldset class="border border-solid border-slate-900 text-center rounded ">
@@ -142,7 +142,7 @@
 <script>
   function pageState() {
     return {
-      wTop: "OFF",
+      wTop: "ON",
       isTop: "ON",
       action: false,
       name: 'দোকানের নাম',
